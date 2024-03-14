@@ -1,0 +1,19 @@
+http:
+  routers:
+    router1:
+      service: service-quotes
+      middlewares:
+        - "pow-auth"
+      rule: "Host(`quotes-127.0.0.1.nip.io`)"
+
+  middlewares:
+    pow-auth:
+      proofOfWorkAuth:
+        secret: ":SUPER_HARD_PASSWORD:"
+        difficulty: 2
+
+  services:
+    service-quotes:
+      loadBalancer:
+        servers:
+          - url: "http://quotes:3000"

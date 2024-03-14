@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка на DDoS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+
+        #countdown {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #countdown li {
+            font-size: 2em;
+            color: #ff6347;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>Происходит проверка на DDoS</h1>
+    <p>Пожалуйста, подождите...</p>
+    <h2>Отчёт о проверке:</h2>
+    <ul id="countdown">
+        <li id="report">3</li>
+    </ul>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sha1-uint8array/dist/sha1-uint8array.min.js"></script>
+<script>
+    window.onload = function () {
+        function getRandomBytes(b) {
+            var ar = new Uint8Array(b);
+            var crypto = window.crypto || window.msCrypto;
+            if (crypto && crypto.getRandomValues) {
+                return crypto.getRandomValues(ar);
+            } else {
+                return function (ar) {
+                    for (var i = 0; i < ar.length; i++) {
+                        ar[i] = Math.floor(256 * Math.random());
+                    }
+                }
+            }
+        }
+
+        function toHex(x) {
+            return x.reduce(function (memo, i) {
+                return memo + ('0' + i.toString(16)).slice(-2);
+            }, '');
+        }
+
+        function doproofOfWork(problem, target, i, callback) {
+            const nonce = getRandomBytes(8)
+            const data = problem + nonce + ":" + i;
+            const hash = SHA1.createHash().update(data).digest("hex");
+
+            if (hash.startsWith(target)) {
+                callback(nonce, i, hash)
+            } else {
+                setTimeout(function () {
+                    doproofOfWork(problem, target, i + 1, callback);
+                });
+            }
+        }
+
+        function proofOfWork(problem, difficulty) {
+            return new Promise(function (resolve, reject) {
+                const target = '0'.repeat(difficulty)
+                doproofOfWork(problem, target, 0, function (nonce, i, hash) {
+                    resolve({nonce, i, hash})
+                })
+            })
+        }
+
+        function setCookie(name, value, expDays) {
+            let date = new Date();
+            date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + "; " + expires + "; path=/";
+        }
+
+        console.log("start {problem}:{sig}")
+        proofOfWork("{problem}:{sig}:", {bits}).then(function ({nonce, i, hash}) {
+            console.log("sig: {sig}")
+            console.log("problem: {problem}")
+            console.log("bits: {bits}")
+            console.log("i: ", i)
+            console.log("nonce: ", toHex(nonce))
+            console.log("hash: ", hash)
+
+            setCookie("challenge", `{problem}:{sig}:${toHex(nonce)}:${i}`)
+            window.location.reload();
+        })
+
+        var reportElement = document.getElementById('report');
+        var count = 3;
+
+        var countdown = setInterval(function () {
+            count--;
+            if (count > 0) {
+                reportElement.textContent = count;
+            } else {
+                clearInterval(countdown);
+                reportElement.textContent = 'Проверка завершена.';
+            }
+        }, 1000);
+    }
+</script>
+</body>
+</html>

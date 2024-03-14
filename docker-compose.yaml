@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  quotes:
+    image: node:20
+    command: ["node", "quotes.js"]
+    working_dir: "/app"
+    volumes:
+      - ./quotes:/app
+  gateway:
+    build:
+      context: ./traefik
+      args:
+        TARGETPLATFORM: "linux/amd64"
+    command: [
+      "--accesslog",
+      "--api.insecure",
+      "--log",
+      "--log.level=debug",
+      "--providers.file.filename=/etc/config.yaml",
+      "--providers.file.watch=true",
+      "--accesslog.fields.headers.defaultmode=keep",
+    ]
+    ports:
+      - 8080:8080
+      - 8081:80
+    volumes:
+      - ./config.yaml:/etc/config.yaml:ro
