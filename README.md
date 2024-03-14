@@ -31,9 +31,12 @@ make demo
 ```
 
 ## Usage
-Clone the repository.
-Build the Docker images for both server and client.
-Run the server container.
-Run the client container to solve the PoW challenge and receive a quote.
-Installation
+
+Clone the repository.  
+Build the Docker images for both server and client.  
+Run the server container.  
+Run the client container to solve the PoW challenge and receive a quote.  
+
+## Installation
+
 To run the Word of Wisdom TCP server and client, Docker must be installed on your system.
