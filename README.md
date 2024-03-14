@@ -16,26 +16,32 @@ Proof of Work (PoW) Algorithm
 The PoW algorithm used in this implementation is based on SHA1 hashing.  
 
 ## Docker
-Server Dockerfile
-The Dockerfile provided for the server contains instructions to build and run the Word of Wisdom TCP server.
+
+The server build is based on dockerfile traefik
 
 ```bash
 make build
+
+# then like this
+docker build -t traefik-gateway ./traefik
 ```
 
-## Client Dockerfile
-The Dockerfile for the client contains instructions to build and run a client capable of solving the PoW challenge.
+## Demo
 
 ```bash
 make demo
+
+# or
+
+docker compouse up
 ```
 
 ## Usage
 
 Clone the repository.  
-Build the Docker images for both server and client.  
+Build the Docker images for server.  
 Run the server container.  
-Run the client container to solve the PoW challenge and receive a quote.  
+Go to: http://quotes-127.0.0.1.nip.io:8081/
 
 ## Installation
 
