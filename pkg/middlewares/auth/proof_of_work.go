@@ -150,7 +150,7 @@ func (p *proofOfWorkAuth) verifyChallengeCookie(req *http.Request) bool {
 
 	if time.Now().After(expTime) {
 		logger.Debug("Auth token expired")
-		tracing.SetErrorWithEvent(req, "Decode exp time expired")
+		tracing.SetErrorWithEvent(req, "Auth token expired")
 
 		return false
 	}
