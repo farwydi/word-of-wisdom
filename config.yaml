@@ -11,6 +11,7 @@ http:
       proofOfWorkAuth:
         secret: ":SUPER_HARD_PASSWORD:"
         difficulty: 2
+        problemBits: 10
 
   services:
     service-quotes:

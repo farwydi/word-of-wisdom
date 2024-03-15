@@ -203,6 +203,7 @@ type ProofOfWorkAuth struct {
 	Difficulty   int    `json:"difficulty,omitempty" toml:"difficulty,omitempty" yaml:"difficulty,omitempty" export:"true"`
 	RemoveHeader bool   `json:"removeHeader,omitempty" toml:"removeHeader,omitempty" yaml:"removeHeader,omitempty" export:"true"`
 	Secret       string `json:"secret,omitempty" toml:"secret,omitempty" yaml:"secret,omitempty" export:"true"`
+	ProblemBits  int    `json:"problemBits,omitempty" toml:"problemBits,omitempty" yaml:"problemBits,omitempty" export:"true"`
 }
 
 // +k8s:deepcopy-gen=true

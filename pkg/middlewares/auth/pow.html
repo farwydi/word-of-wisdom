@@ -69,7 +69,7 @@
 
         function doproofOfWork(problem, target, i, callback) {
             const nonce = getRandomBytes(8)
-            const data = problem + nonce + ":" + i;
+            const data = problem + toHex(nonce) + ":" + i;
             const hash = SHA1.createHash().update(data).digest("hex");
 
             if (hash.startsWith(target)) {
@@ -97,16 +97,17 @@
             document.cookie = name + "=" + value + "; " + expires + "; path=/";
         }
 
-        console.log("start {problem}:{sig}")
-        proofOfWork("{problem}:{sig}:", {bits}).then(function ({nonce, i, hash}) {
-            console.log("sig: {sig}")
+        console.log("start {problem}:{exp}:{sig}")
+        proofOfWork("{problem}:{exp}:{sig}:", {bits}).then(function ({nonce, i, hash}) {
             console.log("problem: {problem}")
+            console.log("exp: {exp}")
+            console.log("sig: {sig}")
             console.log("bits: {bits}")
             console.log("i: ", i)
             console.log("nonce: ", toHex(nonce))
             console.log("hash: ", hash)
 
-            setCookie("challenge", `{problem}:{sig}:${toHex(nonce)}:${i}`)
+            setCookie("challenge", `{problem}:{exp}:{sig}:${toHex(nonce)}:${i}`)
             window.location.reload();
         })
 
