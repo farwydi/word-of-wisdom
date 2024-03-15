@@ -6,7 +6,7 @@ This is a test task for Server Engineer implemented in Go.
 
 The task involves designing and implementing a TCP server named "Word of Wisdom". The server should be capable of handling Proof of Work (PoW) challenges to protect against DDOS attacks. Upon successful PoW verification, the server will respond with a quote from the "Word of Wisdom" book or any other collection of quotes.
 
-source code here: ./pkg/middlewares/auth
+source code here: [proof_of_work.go](pkg/middlewares/auth/proof_of_work.go)
 
 ## Features
 
