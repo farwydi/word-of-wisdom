@@ -28,4 +28,4 @@ build: download_repo check_version
 	@cd $(REPO_DIR) && $(MAKE) binary-linux-amd64
 
 demo:
-	docker compose up
+	docker compose up --build
