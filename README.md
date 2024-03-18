@@ -1,6 +1,7 @@
 # Word of Wisdom TCP Server
 
-This is a test task for Server Engineer implemented in Go.
+This is a test task for Server Engineer implemented in Go.  
+The code base is based on [traefik v2.11.0](https://github.com/traefik/traefik), the solution is presented in the form of middleware.
 
 ## Description
 
@@ -33,7 +34,7 @@ make build
 docker build -t traefik-gateway ./traefik
 ```
 
-## Demo
+## Run
 
 ```bash
 make demo
