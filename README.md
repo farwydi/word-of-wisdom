@@ -18,7 +18,7 @@ This problem can be solved by adding a simpler hash check, for example, checking
 TCP server implementation in Go.  
 Protection against DDOS attacks using Proof of Work.  
 Responds with a quote after PoW verification.  
-Dockerfiles provided for both server and client.  
+Dockerfiles provided for both server and client browser.  
 Proof of Work (PoW) Algorithm  
 The PoW algorithm used in this implementation is based on SHA1 hashing.  
 
@@ -52,4 +52,4 @@ Go to: http://quotes-127.0.0.1.nip.io:8081/
 
 ## Installation
 
-To run the Word of Wisdom TCP server and client, Docker must be installed on your system.
+To run the Word of Wisdom TCP server and client, Docker and Go must be installed on your system.
