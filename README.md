@@ -22,7 +22,7 @@ Dockerfiles provided for both server and client browser.
 Proof of Work (PoW) Algorithm  
 The PoW algorithm used in this implementation is based on SHA1 hashing.  
 
-## Docker
+## Build
 
 The server build is based on dockerfile traefik
 
